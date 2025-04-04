@@ -1,10 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ProductCard.css";
 import CartContext from "../context/CartContext";
 
 function ProductCard({ product }) {
-  const { addToCart } = useContext(CartContext);
+  const { removeFromCart, addToCart, cartList } = useContext(CartContext);
   const { name, price, image } = product;
+  const [isInCart, setIsInCart] = useState(false);
+  useEffect(() => {
+    const productIsInCart = cartList.find(
+      (current) => current.id === product.id
+    );
+    if (productIsInCart) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  }, [cartList, product.id]);
 
   return (
     <div className="productCard">
@@ -12,7 +23,15 @@ function ProductCard({ product }) {
       <p className="name">{name}</p>
       <div className="action">
         <p>${price}</p>
-        <button onClick={() => addToCart(product)}>Add to Cart</button>
+        {isInCart ? (
+          <button className="remove" onClick={() => removeFromCart(product)}>
+            Remove
+          </button>
+        ) : (
+          <button className="addToCart" onClick={() => addToCart(product)}>
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   );
