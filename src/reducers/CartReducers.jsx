@@ -7,8 +7,8 @@ function CartReducers(state, action) {
       return { ...state, cartList: payload.products };
     case "REMOVE_FROM_CART":
       return { ...state, cartList: payload.products };
-    // case "UPDATE_TOTAL":
-    //   return;
+    case "UPDATE_TOTAL":
+      return { ...state, total: payload.total };
 
     default:
       throw new Error("No Case Found in Cart");

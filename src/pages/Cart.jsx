@@ -4,30 +4,18 @@ import CartContext from "../context/CartContext";
 import UseTitle from "../hooks/UseTitle";
 
 function Cart() {
-  const { total } = useContext(CartContext);
-  console.log(total);
+  const { total, cartList } = useContext(CartContext);
+  console.log(cartList);
+
   UseTitle("Cart");
-  const products = [
-    {
-      id: 1,
-      name: "Sony Wh-Ch510 Bluetooth Wireless",
-      price: 149,
-      image: "/assets/images/1001.png",
-    },
-    {
-      id: 2,
-      name: "boAt Rockerz 450",
-      price: 49,
-      image: "/assets/images/1002.png",
-    },
-  ];
+
   return (
     <main>
       <section className="cart">
         <h1>
-          Cart Items: {products.length}/{total}
+          Cart Items: {cartList.length}/${total}
         </h1>
-        {products.map((product) => (
+        {cartList.map((product) => (
           <CartCard key={product.id} product={product} />
         ))}
       </section>
