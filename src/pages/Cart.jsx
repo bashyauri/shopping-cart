@@ -1,8 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import CartCard from "../components/CartCard";
+import CartContext from "../context/CartContext";
 import UseTitle from "../hooks/UseTitle";
 
 function Cart() {
+  const { total } = useContext(CartContext);
+  console.log(total);
   UseTitle("Cart");
   const products = [
     {
@@ -21,7 +24,9 @@ function Cart() {
   return (
     <main>
       <section className="cart">
-        <h1>Cart Items: {products.length}</h1>
+        <h1>
+          Cart Items: {products.length}/{total}
+        </h1>
         {products.map((product) => (
           <CartCard key={product.id} product={product} />
         ))}
@@ -31,3 +36,4 @@ function Cart() {
 }
 
 export default Cart;
+``;
